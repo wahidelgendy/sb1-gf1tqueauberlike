@@ -1,0 +1,26 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      navigatingTo="navigatingTo"
+      class="page">
+    <ActionBar title="Search Location" class="action-bar">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <StackLayout class="p-4">
+        <SearchBar hint="Search for a location" 
+                  text="{{ searchQuery }}" 
+                  submit="{{ onSearch }}"
+                  textChange="{{ onSearchTextChange }}"
+                  class="mb-4" />
+        
+        <ListView items="{{ searchResults }}" 
+                  itemTap="{{ onLocationSelected }}"
+                  height="100%">
+            <ListView.itemTemplate>
+                <StackLayout class="p-2 border-b border-gray-200">
+                    <Label text="{{ name }}" class="text-lg" />
+                    <Label text="{{ address }}" class="text-sm text-gray-600" textWrap="true" />
+                </StackLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
+</Page>

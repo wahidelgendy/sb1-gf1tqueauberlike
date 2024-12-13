@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      navigatingTo="navigatingTo"
+      class="page">
+    <ActionBar title="Payment" class="action-bar" />
+    
+    <StackLayout class="p-4">
+        <!-- Add Card Form -->
+        <StackLayout class="form" visibility="{{ showAddCard ? 'visible' : 'collapsed' }}">
+            <TextField hint="Card Number" 
+                      text="{{ cardNumber }}"
+                      keyboardType="number"
+                      class="input-field" />
+            
+            <GridLayout columns="*, *, *" class="mt-2">
+                <TextField col="0" 
+                          hint="MM" 
+                          text="{{ expMonth }}"
+                          keyboardType="number"
+                          class="input-field" />
+                <TextField col="1" 
+                          hint="YYYY" 
+                          text="{{ expYear }}"
+                          keyboardType="number"
+                          class="input-field" />
+                <TextField col="2" 
+                          hint="CVC" 
+                          text="{{ cvc }}"
+                          keyboardType="number"
+                          secure="true"
+                          class="input-field" />
+            </GridLayout>
+
+            <Button text="Add Card" 
+                    tap="{{ onAddCard }}"
+                    isEnabled="{{ !isProcessing }}"
+                    class="request-button mt-4" />
+        </StackLayout>
+
+        <!-- Payment Methods List -->
+        <ListView items="{{ paymentMethods }}" class="mt-4">
+            <ListView.itemTemplate>
+                <StackLayout class="p-2">
+                    <Label text="{{ brand + ' •••• ' + last4 }}" class="font-bold" />
+                    <Label text="{{ 'Expires ' + expMonth + '/' + expYear }}" class="text-gray-600" />
+                </StackLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <!-- Error Message -->
+        <Label text="{{ error }}"
+               visibility="{{ error ? 'visible' : 'collapsed' }}"
+               class="text-red-500 mt-2" />
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator busy="{{ isProcessing }}"
+                         visibility="{{ isProcessing ? 'visible' : 'collapsed' }}"
+                         class="mt-4" />
+    </StackLayout>
+</Page>
